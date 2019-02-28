@@ -36,7 +36,7 @@ git clone https://github.com/geonmo/KISTIBatch.git
 
 7. 모든 항목을 입력한 후 Done 버튼을 누르면 $AppName.sub 파일이 생성됩니다.
 
-![image](https://user-images.githubusercontent.com/4969463/53554123-6b177f00-3b82-11e9-97ce-fb1ec25bc17a.png)
+![image](https://user-images.githubusercontent.com/4969463/53554548-5edff180-3b83-11e9-8e7b-a4d9e8c64873.png)
 
 8. 이 예제에서는 외부 사이트의 데이터를 사용하기 때문에 x509 인증서를 만들어야 합니다.
 
