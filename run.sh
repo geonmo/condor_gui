@@ -6,4 +6,4 @@ scram p CMSSW CMSSW_9_4_13
 cd CMSSW_9_4_13/src
 eval `scramv1 runtime -sh`
 cd -
-root -l -b -q "run.C(\"$1\")"
+./getZMass.py $1

@@ -30,7 +30,7 @@ class MyWindow(QWidget):
         #self.appLayout.addWidget(self.appProcessButton)
 
         self.executeLayout = QHBoxLayout()
-        self.executeLabel = QLabel("Excutable File Name:")
+        self.executeLabel = QLabel("Running Script File Name:")
         self.executeLineEdit = QLineEdit()
         self.executeButton = QPushButton("Open file")
         self.executeButton.clicked.connect(self.openExecuteFile)
@@ -39,7 +39,7 @@ class MyWindow(QWidget):
         self.executeLayout.addWidget(self.executeButton)
 
         self.scriptLayout = QHBoxLayout()
-        self.scriptLabel = QLabel("Script File Name:")
+        self.scriptLabel = QLabel("Analsis Code File Name:")
         self.scriptLineEdit = QLineEdit()
         self.scriptButton = QPushButton("Open file")
         self.scriptButton.clicked.connect(self.openScriptFile)
