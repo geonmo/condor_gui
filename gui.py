@@ -100,12 +100,14 @@ output = job_$(Process).out
 error  = job_$(Process).err
 log = condor.log
 
+x509userproxy=/tmp/x509up_u%s
 accounting_group=group_cms
 +SingularityImage = "/cvmfs/singularity.opensciencegrid.org/opensciencegrid/osgvo-el6:latest"
 +SingularityBind = "/cvmfs, /cms, /share"
 
 queue DATAFile from %s
-'''%(self.execFname, self.scriptFname, self.outputFname, self.outputFname, self.outputRemapFname, self.fileListFname)
+'''%(self.execFname, self.scriptFname, self.outputFname, self.outputFname, self.outputRemapFname,
+        os.getuid(), self.fileListFname)
         f = open( self.appName+".sub","w")
         f.write(jdl)
         f.close()
