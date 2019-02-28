@@ -60,11 +60,11 @@ class MyWindow(QWidget):
         self.outputFileLabel = QLabel("output File Name:")
         self.outputFileLineEdit = QLineEdit()
         self.outputFileLineEdit.textChanged.connect(self.setOutputFileName)
-        #self.outputFileButton = QPushButton("Open file")
-        #self.outputFileButton.clicked.connect(self.openFileListFile)
+        self.outputFileButton = QPushButton("Search")
+        self.outputFileButton.clicked.connect(self.searchOutputFile)
         self.outputFileLayout.addWidget(self.outputFileLabel)
         self.outputFileLayout.addWidget(self.outputFileLineEdit)
-        #self.outputFileLayout.addWidget(self.outputFileButton)
+        self.outputFileLayout.addWidget(self.outputFileButton)
 
         self.doneLayout = QHBoxLayout()
         self.doneButton = QPushButton("Done")
@@ -112,6 +112,15 @@ queue DATAFile from %s
         f.write(jdl)
         f.close()
         sys.exit(0)
+    def searchOutputFile(self):
+        infile = open(self.scriptFname)
+        lines = infile.readlines()
+        for line in lines :
+            sline = line.strip()
+            if ( sline.upper().find("RECREATE") != -1 ) :
+                filename = sline.split("TFile")[-1].replace("RECREATE","").replace("recreate","").replace('"',"").replace(",","").replace("(","").replace(")","")
+                self.outputFileLineEdit.setText(filename)
+
     def setOutputFileName(self):
         self.outputFname = self.outputFileLineEdit.text().toUtf8().data()
         name, ext = os.path.splitext(self.outputFname)
