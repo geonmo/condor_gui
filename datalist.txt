@@ -1,1 +1,0 @@
-/cms/scratch/geonmo/data/histo.root

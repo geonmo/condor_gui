@@ -1,11 +1,18 @@
 executable = ana.sh
 universe   = vanilla
 arguments  = $(DATAFile)
-log = condor.log
 getenv     = True
+
 transfer_input_files = run.C
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
+
 output = job_$(Process).out
-error = job_$(Process).err
-queue DATAFile from datalist.txt
+error  = job_$(Process).err
+log = condor.log
+
+accounting_group=group_cms
++SingularityImage = "/cvmfs/singularity.opensciencegrid.org/opensciencegrid/osgvo-el6:latest"
++SingularityBind = "/cvmfs, /cms, /share"
+
+queue DATAFile from filelist.txt

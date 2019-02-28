@@ -1,0 +1,4 @@
+root://cmsxrootd.fnal.gov//store/user/arizzi/Nano01Fall17/ZZ_TuneCP5_13TeV-pythia8/RunIIFall17MiniAOD-94X-Nano01Fall17/180214_161216/0000/test94X_NANO_1.root 
+root://cmsxrootd.fnal.gov//store/user/arizzi/Nano01Fall17/ZZ_TuneCP5_13TeV-pythia8/RunIIFall17MiniAOD-94X-Nano01Fall17/180214_161216/0000/test94X_NANO_2.root 
+root://cmsxrootd.fnal.gov//store/user/arizzi/Nano01Fall17/ZZ_TuneCP5_13TeV-pythia8/RunIIFall17MiniAOD-94X-Nano01Fall17/180214_161216/0000/test94X_NANO_3.root 
+root://cmsxrootd.fnal.gov//store/user/arizzi/Nano01Fall17/ZZ_TuneCP5_13TeV-pythia8/RunIIFall17MiniAOD-94X-Nano01Fall17/180214_161216/0000/test94X_NANO_4.root 
