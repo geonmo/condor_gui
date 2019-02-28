@@ -38,12 +38,42 @@ git clone https://github.com/geonmo/KISTIBatch.git
 
 ![image](https://user-images.githubusercontent.com/4969463/53554548-5edff180-3b83-11e9-8e7b-a4d9e8c64873.png)
 
-8. 이 예제에서는 외부 사이트의 데이터를 사용하기 때문에 x509 인증서를 만들어야 합니다.
+8. 파일이 잘 생성되었는지 확인합니다.
+```bash
+[geonmo@ui10 KISTIBatch]$ cat Ana02.sub 
+
+executable = /share/geonmo/KISTIBatch/run.sh
+universe   = vanilla
+arguments  = $(DATAFile)
+getenv     = True
+
+transfer_input_files = /share/geonmo/KISTIBatch/getZMass.py
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+
+transfer_output_files = zcandmass.root
+transfer_output_remaps = "zcandmass.root = zcandmass_$(Process).root"
+
+
+output = job_$(Process).out
+error  = job_$(Process).err
+log = condor.log
+
+x509userproxy=/tmp/x509up_u556800422
+accounting_group=group_cms
++SingularityImage = "/cvmfs/singularity.opensciencegrid.org/opensciencegrid/osgvo-el6:latest"
++SingularityBind = "/cvmfs, /cms, /share"
+
+queue DATAFile from /share/geonmo/KISTIBatch/filelist.txt
+```
+
+9. 이 예제에서는 외부 사이트의 데이터를 사용하기 때문에 x509 인증서를 만들어야 합니다.
 
 ```bash
 voms-proxy-init --voms cms
 ```
-9. 작업을 제출하고 결과가 잘 돌아오는지 확인합니다.
+
+10. 작업을 제출하고 결과가 잘 돌아오는지 확인합니다.
 ```bash
 condor_submit Ana02.sub
 ```
