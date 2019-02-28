@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import sys,os
 from PyQt4.QtGui import *
 
@@ -134,7 +135,7 @@ queue DATAFile from %s
 
     def openFileListFile(self):
         self.fileListFname = QFileDialog.getOpenFileName(self)
-        filename = self.execFname.split("/")[-1]
+        filename = self.fileListFname.split("/")[-1]
         self.fileListLineEdit.setText(filename)
     def openExecuteFile(self):
         self.execFname = QFileDialog.getOpenFileName(self)
