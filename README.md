@@ -14,7 +14,8 @@ git clone https://github.com/geonmo/KISTIBatch.git
 ## 예제
 ### 파일 소개 : 각 파일들은 다음과 같은 기능을 수행합니다.
 - getZMass.py : nanoAOD 파일을 읽어 Zmass 분포를 그립니다. 해당 코드에서 결과물 파일 이름은 zcandmass.root이며 TFile의 Open("RECREATE")로 결과파일을 생성합니다.
-- run.sh : CMSSW와 ROOT 사용을 위한 환경변수 설정 및 위 분석 코드를 실행하는 코드입니다. 이 예제에서는 getZMass.py 뒤에 붙는 인자를 통해 입력 파일을 넣어줍니다. 이 예제는 10000개의 이벤트만 분석합니다. 예) ./getZMass.py a.root => a.root 파일을 읽어서 분석
+- run.sh : CMSSW와 ROOT 사용을 위한 환경변수 설정 및 위 분석 코드를 실행하는 코드입니다. 이 예제에서는 getZMass.py 뒤에 붙는 인자를 통해 입력 파일을 넣어줍니다. 이 예제는 10000개의 이벤트만 분석합니다. 
+   - 예) ./getZMass.py a.root => a.root 파일을 읽어서 분석
 - filelist.txt : 입력 파일의 경로를 넣어주는 파일입니다. 이 예제에서는 외부 사이트에 들어있는 파일을 넣기 위해 CMS AAA federation (root://cmsxrootd.fnal.gov/)를 이용합니다.
 - gui.py : 위 3개 파일을 이용하여 HTCondor 작업 제출 명세 파일을 작성해주는 GUI 프로그램입니다.
 ### 사용 방법 소개
@@ -36,14 +37,44 @@ git clone https://github.com/geonmo/KISTIBatch.git
 
 7. 모든 항목을 입력한 후 Done 버튼을 누르면 $AppName.sub 파일이 생성됩니다.
 
-![image](https://user-images.githubusercontent.com/4969463/53554123-6b177f00-3b82-11e9-97ce-fb1ec25bc17a.png)
+![image](https://user-images.githubusercontent.com/4969463/53554548-5edff180-3b83-11e9-8e7b-a4d9e8c64873.png)
 
-8. 이 예제에서는 외부 사이트의 데이터를 사용하기 때문에 x509 인증서를 만들어야 합니다.
+8. 파일이 잘 생성되었는지 확인합니다.
+```bash
+[geonmo@ui10 KISTIBatch]$ cat Ana02.sub 
+
+executable = /share/geonmo/KISTIBatch/run.sh
+universe   = vanilla
+arguments  = $(DATAFile)
+getenv     = True
+
+transfer_input_files = /share/geonmo/KISTIBatch/getZMass.py
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+
+transfer_output_files = zcandmass.root
+transfer_output_remaps = "zcandmass.root = zcandmass_$(Process).root"
+
+
+output = job_$(Process).out
+error  = job_$(Process).err
+log = condor.log
+
+x509userproxy=/tmp/x509up_u556800422
+accounting_group=group_cms
++SingularityImage = "/cvmfs/singularity.opensciencegrid.org/opensciencegrid/osgvo-el6:latest"
++SingularityBind = "/cvmfs, /cms, /share"
+
+queue DATAFile from /share/geonmo/KISTIBatch/filelist.txt
+```
+
+9. 이 예제에서는 외부 사이트의 데이터를 사용하기 때문에 x509 인증서를 만들어야 합니다.
 
 ```bash
 voms-proxy-init --voms cms
 ```
-9. 작업을 제출하고 결과가 잘 돌아오는지 확인합니다.
+
+10. 작업을 제출하고 결과가 잘 돌아오는지 확인합니다.
 ```bash
 condor_submit Ana02.sub
 ```
