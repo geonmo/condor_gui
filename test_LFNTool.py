@@ -31,3 +31,11 @@ if __name__ == "__main__":
     print( "\n"*2)
     lfn5 = "/store/user/geonmo/Ups1SMM_5p02TeV_TuneCP5_Embd_RECO_20190401/190402_035044/0000/HIN-HINPbPbAutumn18DRHIMix-00003_step2_979.root"
     print( SearchROOT().fromLFN(lfn5).toPFN())
+
+    wrongLFN = "/xrootd//store/user/geonmo/Ups1SMM_5p02TeV_TuneCP5_Embd_RECO_20190401/190402_035044/0001/HIN-HINPbPbAutumn18DRHIMix-00003_step2_1069.root"
+    print( SearchROOT().fromLFN(wrongLFN).toPFN())
+
+    test1.everyChecking = True
+    wrongLFN2 = "/xrootd//store/user/geonmo/a.root"
+    print( test1.fromLFN(wrongLFN2).toPFN())
+
