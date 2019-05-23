@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import sys,os
+import sys,os,platform
 from PyQt4.QtGui import *
 
 class MyWindow(QWidget):
@@ -84,6 +84,7 @@ class MyWindow(QWidget):
 
     def writeJDL(self):
         jdl='''
+batch_name = %s
 executable = %s
 universe   = vanilla
 arguments  = $(DATAFile)
@@ -103,12 +104,15 @@ log = condor.log
 
 x509userproxy=/tmp/x509up_u%s
 accounting_group=group_cms
+'''%(self.appName, self.execFname, self.scriptFname, self.outputFname, self.outputFname, self.outputRemapFname, os.getuid())
+        if platform.release()[:3] == "2.6":
+            jdl += '''
 +SingularityImage = "/cvmfs/singularity.opensciencegrid.org/opensciencegrid/osgvo-el6:latest"
-+SingularityBind = "/cvmfs, /cms, /share"
-
++SingularityBind = "/cvmfs, /cms, /share, /tmp"
+'''
+        jdl += '''
 queue DATAFile from %s
-'''%(self.execFname, self.scriptFname, self.outputFname, self.outputFname, self.outputRemapFname,
-        os.getuid(), self.fileListFname)
+'''%(self.fileListFname)
         f = open( self.appName+".sub","w")
         f.write(jdl)
         f.close()

@@ -1,3 +1,5 @@
+
+batch_name = kisti batch test
 executable = run.sh
 universe   = vanilla
 arguments  = $(DATAFile)
@@ -12,7 +14,10 @@ error  = job_$(Process).err
 log = condor.log
 
 accounting_group=group_cms
+
+
 +SingularityImage = "/cvmfs/singularity.opensciencegrid.org/opensciencegrid/osgvo-el6:latest"
 +SingularityBind = "/cvmfs, /cms, /share"
+
 
 queue DATAFile from filelist.txt
