@@ -49,7 +49,7 @@ universe   = vanilla
 arguments  = $(DATAFile)
 getenv     = True
 
-transfer_input_files = /share/geonmo/CMSSW_10_2_9/src/KISTIBatch/getZMass.py, /tmp/x509up_u556800422
+transfer_input_files = /share/geonmo/CMSSW_10_2_9/src/KISTIBatch/getZMass.py, /tmp/x509up_u556800422, LFNTool.py
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 
