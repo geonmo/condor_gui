@@ -41,14 +41,15 @@ git clone https://github.com/geonmo/KISTIBatch.git
 
 8. 파일이 잘 생성되었는지 확인합니다.
 ```bash
-[geonmo@ui10 KISTIBatch]$ cat Ana02.sub 
+(base) [geonmo@ui10 KISTIBatch]$ cat ana01.sub 
 
-executable = /share/geonmo/KISTIBatch/run.sh
+batch_name = ana01
+executable = /share/geonmo/CMSSW_10_2_9/src/KISTIBatch/run.sh
 universe   = vanilla
 arguments  = $(DATAFile)
 getenv     = True
 
-transfer_input_files = /share/geonmo/KISTIBatch/getZMass.py
+transfer_input_files = /share/geonmo/CMSSW_10_2_9/src/KISTIBatch/getZMass.py, /tmp/x509up_u556800422
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 
@@ -62,13 +63,15 @@ log = condor.log
 
 x509userproxy=/tmp/x509up_u556800422
 accounting_group=group_cms
-+SingularityImage = "/cvmfs/singularity.opensciencegrid.org/opensciencegrid/osgvo-el6:latest"
-+SingularityBind = "/cvmfs, /cms, /share"
 
-queue DATAFile from /share/geonmo/KISTIBatch/filelist.txt
++SingularityImage = "/cvmfs/singularity.opensciencegrid.org/opensciencegrid/osgvo-el6:latest"
++SingularityBind = "/cvmfs, /cms, /share, /tmp"
+
+queue DATAFile from /share/geonmo/CMSSW_10_2_9/src/KISTIBatch/filelist.txt
 ```
 
-9. 이 예제에서는 외부 사이트의 데이터를 사용하기 때문에 x509 인증서를 만들어야 합니다.
+9. 외부 사이트의 데이터를 사용하는 경우에는 x509 인증서를 만들어야 합니다.
+(현재 업데이트된 프로그램에서는 파일 존재를 검색하여 테스트가 진행됩니다. T3에 파일이 있는 경우 local 경로를 사용합니다.)
 
 ```bash
 voms-proxy-init --voms cms
