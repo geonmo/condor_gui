@@ -1,9 +1,9 @@
 #!/bin/bash
 
-export SCRAM_ARCH=slc6_amd64_gcc630
+export SCRAM_ARCH=slc6_amd64_gcc700
 source /cvmfs/cms.cern.ch/cmsset_default.sh
-scram p CMSSW CMSSW_9_4_13
-cd CMSSW_9_4_13/src
+scram p CMSSW CMSSW_10_2_9
+cd CMSSW_10_2_9/src
 eval `scramv1 runtime -sh`
 cd -
 echo $(hostname)
