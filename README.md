@@ -41,9 +41,9 @@ git clone https://github.com/geonmo/KISTIBatch.git
 
 8. 파일이 잘 생성되었는지 확인합니다.
 ```bash
-(base) [geonmo@ui10 KISTIBatch]$ cat ana01.sub 
+(base) [geonmo@ui10 KISTIBatch]$ cat Ana02.sub 
 
-batch_name = ana01
+batch_name = Ana02
 executable = /share/geonmo/CMSSW_10_2_9/src/KISTIBatch/run.sh
 universe   = vanilla
 arguments  = $(DATAFile)
