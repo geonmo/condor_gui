@@ -2,14 +2,19 @@
 
 import ROOT
 import os, sys
+from LFNTool import SearchROOT
 
 
 verbose = False
 def getZMass(argv):
     infile = argv[1]
-    print("Load ROOTFile : "+infile)
+    print("Searching input root file...")
+    searcher= SearchROOT()
+    searcher.verboseOn()
+    infilePFN = searcher.fromLFN(infile).toPFN()
+    print("Load ROOTFile : "+infilePFN)
     try:
-        inROOTFile = ROOT.TFile.Open(infile)
+        inROOTFile = ROOT.TFile.Open(infilePFN)
         if(inROOTFile == None) : raise Exception("NoFile")
     except :
         print("file is missing or not accessible.")
