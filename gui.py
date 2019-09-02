@@ -90,7 +90,7 @@ universe   = vanilla
 arguments  = $(DATAFile)
 getenv     = True
 
-transfer_input_files = %s, /tmp/x509up_u%s
+transfer_input_files = %s, /tmp/x509up_u%s, LFNTool.py
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 
