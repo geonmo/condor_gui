@@ -90,7 +90,7 @@ universe   = vanilla
 arguments  = $(DATAFile)
 getenv     = True
 
-transfer_input_files = %s
+transfer_input_files = %s, /tmp/x509up_u%s, LFNTool.py
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 
@@ -104,7 +104,7 @@ log = condor.log
 
 x509userproxy=/tmp/x509up_u%s
 accounting_group=group_cms
-'''%(self.appName, self.execFname, self.scriptFname, self.outputFname, self.outputFname, self.outputRemapFname, os.getuid())
+'''%(self.appName, self.execFname, self.scriptFname, os.getuid(), self.outputFname, self.outputFname, self.outputRemapFname, os.getuid())
         if platform.release()[:3] == "2.6":
             jdl += '''
 +SingularityImage = "/cvmfs/singularity.opensciencegrid.org/opensciencegrid/osgvo-el6:latest"

@@ -132,7 +132,7 @@ class SearchROOT(SingletonInstance):
             ### Global Redirector will be dropped for Accessing.
             if "cmsxrootd.fnal.gov" in test_PFN: continue
             if "xrootd-cms.infn.it" in test_PFN: continue
-            if "cms-xrd.global.cern.ch" in test_PFN: continue
+            if "cms-xrd-global.cern.ch" in test_PFN: continue
 
             if ( self.verbose ): 
                 print("Trying to using "+test_PFN)
