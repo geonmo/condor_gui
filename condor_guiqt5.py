@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import sys,os,platform
+import sys,os,platform,subprocess
 from PyQt5.QtWidgets import *
 
 
@@ -85,6 +85,11 @@ class MyWindow(QWidget):
         self.setLayout(self.layout)
 
     def writeJDL(self):
+        inputSandBox = "%s"%(self.scriptFname)
+        if os.path.isfile("./LFNTool.py"):
+            inputSandBox += ", LFNTool.py"
+        if subprocess.call(['voms-proxy-info','-exists'],stderr=open("/dev/null",'w')) == 0:
+            inputSandBox += ", /tmp/x509up_u%s"%(os.getuid())
         jdl='''
 batch_name = %s
 executable = %s
@@ -92,7 +97,7 @@ universe   = vanilla
 arguments  = $(DATAFile)
 getenv     = True
 
-transfer_input_files = %s, /tmp/x509up_u%s, LFNTool.py
+transfer_input_files = %s
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 
@@ -106,7 +111,7 @@ log = condor.log
 
 x509userproxy=/tmp/x509up_u%s
 accounting_group=group_cms
-'''%(self.appName, self.execFname, self.scriptFname, os.getuid(), self.outputFname, self.outputFname, self.outputRemapFname, os.getuid())
+'''%(self.appName, self.execFname, inputSandBox, self.outputFname, self.outputFname, self.outputRemapFname, os.getuid())
         if platform.release()[:3] == "2.6":
             jdl += '''
 +SingularityImage = "/cvmfs/singularity.opensciencegrid.org/opensciencegrid/osgvo-el6:latest"
@@ -114,14 +119,14 @@ accounting_group=group_cms
 '''
         jdl += '''
 queue DATAFile from %s
-'''%(self.fileListFname[0])
+'''%(self.fileListFname)
         f = open( self.appName+".sub","w")
         f.write(jdl)
         f.close()
         sys.exit(0)
 
     def searchOutputFile(self):
-        infile = open(self.scriptFname[0])
+        infile = open(self.scriptFname)
         lines = infile.readlines()
         for line in lines :
             sline = line.strip()
@@ -150,21 +155,20 @@ queue DATAFile from %s
         self.appLineEdit.setText( self.appLineEdit.text() + "$(Process)")
 
     def openFileListFile(self):
-        self.fileListFname = QFileDialog.getOpenFileName(self)
-        filename = self.fileListFname[0].split("/")[-1]
+        self.fileListFname = QFileDialog.getOpenFileName(self)[0]
+        filename = self.fileListFname.split("/")[-1]
         self.fileListLineEdit.setText(filename)
     def openExecuteFile(self):
-        self.execFname = QFileDialog.getOpenFileName(self)
-        print(self.execFname)
-        filename = self.execFname[0].split("/")[-1]
+        self.execFname = QFileDialog.getOpenFileName(self)[0]
+        filename = self.execFname.split("/")[-1]
         self.executeLineEdit.setText(filename)
     def openScriptFile(self):
-        nameFilter = "ROOT macro files (*.C)"
-        nameFilters = ["ROOT macro files (*.C)","Python script files (*.py)"]
         scriptDialog = QFileDialog()
-        scriptDialog.setNameFilters(nameFilters)
-        self.scriptFname = scriptDialog.getOpenFileName()
-        filename = self.scriptFname[0].split("/")[-1]
+        dialogwindow = \
+        scriptDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()","","All \
+                Files (*);;Python Files (*.py);;ROOT Macro Files (*.C)")
+        self.scriptFname = dialogwindow[0]
+        filename = self.scriptFname.split("/")[-1]
         self.scriptLineEdit.setText(filename)
 
 

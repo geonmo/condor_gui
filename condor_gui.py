@@ -147,7 +147,7 @@ queue DATAFile from %s
         self.executeLineEdit.setText(filename)
     def openScriptFile(self):
         nameFilter = "ROOT macro files (*.C)"
-        nameFilters = ["ROOT macro files (*.C)","Python script files (*.py)"]
+        nameFilters = "ROOT macro files (*.C);;Python script files (*.py)"
         scriptDialog = QFileDialog()
         scriptDialog.setNameFilters(nameFilters)
         self.scriptFname = scriptDialog.getOpenFileName()
