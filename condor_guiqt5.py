@@ -88,7 +88,7 @@ class MyWindow(QWidget):
         inputSandBox = "%s"%(self.scriptFname)
         if os.path.isfile("./LFNTool.py"):
             inputSandBox += ", LFNTool.py"
-        if subprocess.call(['voms-proxy-info','-exists'],stderr=open("/dev/null",'w')) == 0:
+        if subprocess.call(['voms-proxy-info','-exists'],stderr=open(os.devnull,'w')) == 0:
             inputSandBox += ", /tmp/x509up_u%s"%(os.getuid())
         jdl='''
 batch_name = %s
