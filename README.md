@@ -19,9 +19,9 @@ git clone https://github.com/geonmo/KISTIBatch.git
 - filelist.txt : 입력 파일의 경로를 넣어주는 파일입니다. 이 예제에서는 외부 사이트에 들어있는 파일을 넣기 위해 CMS AAA federation (root://cmsxrootd.fnal.gov/)를 이용합니다.
 - gui.py : 위 3개 파일을 이용하여 HTCondor 작업 제출 명세 파일을 작성해주는 GUI 프로그램입니다.
 ### 사용 방법 소개
-1. cmsenv를 사용하지 않고 gui.py를 실행합니다. 
+1. cmsenv를 사용하지 않고 condor_gui.py를 실행합니다. 
 ```bash
-./gui.py
+./condor_gui.py
 ```
 ![image](https://user-images.githubusercontent.com/4969463/53553725-a4032400-3b81-11e9-90d4-5e1943c29fce.png)
 
